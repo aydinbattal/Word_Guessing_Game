@@ -1,6 +1,7 @@
 package com.aydinbattal.a2_word_guessing_game.models
 
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 /**
  * A2-Word-Guessing-Game created by aydin
@@ -8,7 +9,7 @@ import androidx.room.Entity
  * on 2022-03-08 */
 
 @Entity(tableName="guesses")
-data class Guess(val chanceId:Int, val secretWord:String, val userGuess:String) {
+data class Guess(@PrimaryKey(autoGenerate = false) val chanceId:Int, val secretWord:String, val userGuess:String) {
 
     fun getLetterStates():List<Result>{
         val resultList:MutableList<Result> = mutableListOf()
