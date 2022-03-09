@@ -17,6 +17,7 @@ class MainActivityViewModel(val db: GuessDatabase): ViewModel() {
 
     fun saveGame(){
         //todo
+        db.getGuessDAO().insert(guessList)
     }
 
     fun secretWord(userGuess:Guess){

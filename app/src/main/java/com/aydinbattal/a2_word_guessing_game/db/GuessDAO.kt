@@ -14,5 +14,5 @@ import com.aydinbattal.a2_word_guessing_game.models.Guess
 interface GuessDAO {
     // create
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(item: Guess)
+    fun insert(item: List<Guess>)
 }
