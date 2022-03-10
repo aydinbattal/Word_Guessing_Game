@@ -1,5 +1,6 @@
 package com.aydinbattal.a2_word_guessing_game.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.aydinbattal.a2_word_guessing_game.db.GuessDatabase
@@ -11,19 +12,20 @@ import com.aydinbattal.a2_word_guessing_game.models.Guess
  * on 2022-03-08 */
 class MainActivityViewModel(val db: GuessDatabase): ViewModel() {
     var secretWord:String = "CABLE"
-    var guessList:MutableList<Guess> = mutableListOf()
-    var isGameOver:Boolean = false
-    //var isGameOver = MutableLiveData<Boolean>(false)
+    var guessList:MutableLiveData<MutableList<Guess>> = MutableLiveData(mutableListOf())
+    var isGameOver = MutableLiveData<Boolean>(false)
 
     fun saveGame(){
-        //todo
-        db.getGuessDAO().insert(guessList)
+        db.getGuessDAO().insert(guessList.value!!.toList())
     }
 
     fun secretWord(userGuess:Guess){
-        if (userGuess.userGuess == userGuess.secretWord || userGuess.chanceId > 5){
-            isGameOver
+        if (userGuess.userGuess == secretWord || userGuess.chanceId == 4){
+            isGameOver.value = true
         }
-        guessList.add(userGuess)
+        guessList.value?.add(userGuess)
+        guessList.value = guessList.value
+
+        Log.d("ABC", guessList.value.toString())
     }
 }
